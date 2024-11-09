@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_departments', function (Blueprint $table) {
+        Schema::create('tb_sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('department_name');
-            $table->string('location');
+            $table->string('sub_category_name');
             $table->text('description')->nullable();
+            $table->integer('category_id');
             $table->integer('customer_id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_departments');
+        Schema::dropIfExists('tb_sub_categories');
     }
 };

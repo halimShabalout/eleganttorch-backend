@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
@@ -24,6 +27,14 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index']);
+        Route::post('/', [CategoryController::class, 'store']);
+        Route::get('{id}', [CategoryController::class, 'show']);
+        Route::post('{id}', [CategoryController::class, 'update']);
+        Route::delete('{id}', [CategoryController::class, 'destroy']);
+    });
+
     Route::prefix('customers')->group(function () {
         Route::get('/', [CustomerController::class, 'index']);
         Route::post('/', [CustomerController::class, 'store']);
@@ -38,6 +49,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('{id}', [DepartmentController::class, 'show']);
         Route::post('{id}', [DepartmentController::class, 'update']);
         Route::delete('{id}', [DepartmentController::class, 'destroy']);
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index']);
+        Route::post('/', [ProductController::class, 'store']);
+        Route::get('{id}', [ProductController::class, 'show']);
+        Route::post('{id}', [ProductController::class, 'update']);
+        Route::delete('{id}', [ProductController::class, 'destroy']);
+    });
+
+    Route::prefix('project')->group(function () {
+        Route::get('/', [ProjectController::class, 'index']);
+        Route::post('/', [ProjectController::class, 'store']);
+        Route::get('{id}', [ProjectController::class, 'show']);
+        Route::post('{id}', [ProjectController::class, 'update']);
+        Route::delete('{id}', [ProjectController::class, 'destroy']);
     });
 
     Route::prefix('users')->group(function () {

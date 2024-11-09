@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_projects', function (Blueprint $table) {
+        Schema::create('tb_departments', function (Blueprint $table) {
             $table->id();
-            $table->string('project_name');
-            $table->text('location')->nullable();
+            $table->string('department_name');
+            $table->string('location')->nullable();
             $table->text('description')->nullable();
-            $table->date('start_date')->nullable();;
-            $table->date('end_date')->nullable();
-            $table->json('images')->nullable(); 
-            $table->string('video')->nullable();
-            $table->boolean('is_active')->default(false); 
             $table->integer('customer_id');
             $table->timestamps();
         });
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_projects');
+        Schema::dropIfExists('tb_departments');
     }
 };

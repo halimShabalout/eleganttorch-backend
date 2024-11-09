@@ -17,13 +17,12 @@ class UserService extends BaseService
             'first_name'       => 'required|string|max:255',
             'last_name'        => 'required|string|max:255',
             'lang'             => 'required|string',
-            'phone_number'     => 'required|string|max:15|regex:/^[0-9+\-\(\) ]+$/',
-            'position'         => 'required|string|max:255',
+            'phone_number'     => 'nullable|string|max:15|regex:/^[0-9+\-\(\) ]+$/',
+            'position'         => 'nullable|string|max:255',
             'email'            => 'required|string|email|max:255|unique:users,email',
             'password'         => 'required|string|min:1',
-            'department_id'    => 'nullable|integer',
-            'customer_id'      => 'nullable|integer',
-            'is_active'        => 'required|boolean'
+            'customer_id'      => 'required|integer',
+            'is_active'        => 'nullable|boolean'
         ];
     }
     /**
@@ -39,12 +38,11 @@ class UserService extends BaseService
      */
     public function createUser(array $data): ServiceResponse
     {
-        $validator = Validator::make($data, $this->validatedData(), Lang::get('validation'));
-        if ($validator->fails()) return $this->setResponse(406, $validator->errors(), null);
+        $data['customer_id'] = $data['customer_id'] ?? Auth::user()->customer_id;
         $data['password'] = Hash::make($data['password']);
 
-        $data['department_id'] = $data['department_id'] ?? Auth::user()->department_id;
-        $data['customer_id'] = $data['customer_id'] ?? Auth::user()->customer_id;
+        $validator = Validator::make($data, $this->validatedData(), Lang::get('validation'));
+        if ($validator->fails()) return $this->setResponse(406, $validator->errors(), null);
 
         $user = new User($data);
         return $user->save() ? $this->setResponse(200, 'User successfully created', $user) : $this->setResponse(500, 'Something Went Wrong !', null);

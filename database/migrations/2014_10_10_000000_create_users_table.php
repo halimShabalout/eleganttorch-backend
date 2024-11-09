@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('lang');
-            $table->string('phone_number');
-            $table->string('position');
+            $table->string('phone_number')->nullable();
+            $table->string('position')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('department_id');
             $table->integer('customer_id');
             $table->boolean('is_active')->default(true); 
             $table->timestamps();

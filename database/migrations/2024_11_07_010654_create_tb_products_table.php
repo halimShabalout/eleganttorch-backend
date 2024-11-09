@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('product_name');
             $table->json('images')->nullable();
             $table->text('description')->nullable(); 
-            $table->decimal('price', 10, 2); 
+            $table->decimal('price', 10, 2)->nullable(); 
             $table->decimal('price_after_discount', 10, 2)->nullable(); 
             $table->integer('quantity');
             $table->boolean('is_price_visible')->default(true); 
-            $table->integer('category_id');
+            $table->boolean('is_active')->default(true); 
+            $table->integer('sub_category_id');
             $table->integer('customer_id');
             $table->timestamps();
         });

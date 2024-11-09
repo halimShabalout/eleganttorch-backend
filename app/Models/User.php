@@ -25,7 +25,6 @@ class User extends Authenticatable
         'position',
         'email',
         'password',
-        'department_id',
         'customer_id',
         'is_active',
     ];
@@ -49,4 +48,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
 }

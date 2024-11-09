@@ -16,6 +16,7 @@ class DepartmentService extends BaseService
             'department_name'  => 'required|string|max:255',
             'location'         => 'required|string|max:255',
             'description'      => 'nullable|string',
+            'customer_id'      => 'required|integer',
         ];
     }
     /**
@@ -31,10 +32,10 @@ class DepartmentService extends BaseService
      */
     public function createDepartment(array $data): ServiceResponse
     {
+        $data['customer_id'] = Auth::user()->customer_id;
+
         $validator = Validator::make($data, $this->validatedData(), Lang::get('validation'));
         if ($validator->fails()) return $this->setResponse(406, $validator->errors(), null);
-
-        $data['customer_id'] = Auth::user()->customer_id;
 
         $department = new Department($data);
         return $department->save() ? $this->setResponse(200, 'department created successfully', $department) : $this->setResponse(500, 'Something Went Wrong', $department);
