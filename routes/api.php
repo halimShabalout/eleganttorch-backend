@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
@@ -65,6 +66,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('{id}', [ProjectController::class, 'show']);
         Route::post('{id}', [ProjectController::class, 'update']);
         Route::delete('{id}', [ProjectController::class, 'destroy']);
+    });
+
+    Route::prefix('subCategories')->group(function () {
+        Route::get('/', [SubCategoryController::class, 'index']);
+        Route::post('/', [SubCategoryController::class, 'store']);
+        Route::get('{id}', [SubCategoryController::class, 'show']);
+        Route::post('{id}', [SubCategoryController::class, 'update']);
+        Route::delete('{id}', [SubCategoryController::class, 'destroy']);
     });
 
     Route::prefix('users')->group(function () {
